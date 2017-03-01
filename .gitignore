@@ -1,0 +1,8 @@
+# ignoruj wszystkie w podkatalogu cpp
+cpp/*
+# ale nie źródłowe
+!cpp/*.c
+!cpp/*.cpp
+!cpp/*.cxx
+!cpp/Makefile
+!cpp/kl*
