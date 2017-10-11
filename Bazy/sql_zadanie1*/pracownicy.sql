@@ -9,12 +9,13 @@ CREATE TABLE dzial (
     siedziba VARCHAR(40)
 );
 
+
 CREATE TABLE pracownicy (
     id VARCHAR(6) PRIMARY KEY,
     nazwisko VARCHAR(20),
     imie VARCHAR(20),
     stanowisko VARCHAR(20),
-    data_zatr VARCHAR(23),
+    data_zatrudnienia VARCHAR(23),
     placa NUMERIC,
     premia NUMERIC,
     id_dzial INTEGER,
