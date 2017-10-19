@@ -5,6 +5,10 @@
 
 import sqlite3
 
+def wyniki(dane):
+    for rekord in dane:
+        print(tuple(rekord))
+
 def kw_c(cur):
     cur.execute ("""
         SELECT siedziba, SUM(placa) AS pensje FROM dzial, pracownicy
@@ -13,9 +17,8 @@ def kw_c(cur):
         ORDER BY pensje ASC
     """)
     
-    wyniki = cur.fetchall()
-    for rekord in wyniki:
-        print(tuple(rekord))
+    wyniki(cur.fetchall())
+    
 
 def kw_d(cur):
     parametr = input('Podaj nazwę działu: ')
@@ -27,9 +30,8 @@ def kw_d(cur):
         AND imie NOT LIKE '%a' 
     """, (parametr,))
     
-    wyniki = cur.fetchall()
-    for rekord in wyniki:
-        print(tuple(rekord))
+    wyniki(cur.fetchall())
+    
 
 def kw_e(cur):
     cur.execute ("""
@@ -37,16 +39,29 @@ def kw_e(cur):
         WHERE  premia.id = pracownicy.stanowisko
     """)
     
-    wyniki = cur.fetchall()
-    for rekord in wyniki:
-        print(tuple(rekord))
+    wyniki(cur.fetchall())
+    
+def kw_f(cur):
+    #~cur.execute ("""
+        #~SELECT AVG(placa) FROM pracownicy
+        #~WHERE imie LIKE '%a' 
+    #~""")
+    cur.execute ("""
+        SELECT AVG(placa) 
+        FROM pracownicy
+        GROUP BY imie LIKE '%a' 
+    """)
+    # NOT LIKE dla mężczyzn
+    wyniki(cur.fetchall())
+
 
 def main(args):
     con = sqlite3.connect('pracownicy.sqlite3')
     cur = con.cursor()  # utworzenie kursora
     #kw_c(cur)
     #kw_d(cur)
-    kw_e(cur)
+    #kw_e(cur)
+    kw_f(cur)
     return 0
 
 if __name__ == '__main__':
