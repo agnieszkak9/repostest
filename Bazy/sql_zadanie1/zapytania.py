@@ -54,6 +54,16 @@ def kw_f(cur):
     # NOT LIKE dla mężczyzn
     wyniki(cur.fetchall())
 
+def kw_g(cur):
+    cur.execute ("""
+        SELECT imie, nazwisko, 
+        CAST((JulianDay() - JulianDay(data_zatr)) / 365 AS Integer) AS okres
+        FROM pracownicy
+        ORDER BY okres DESC
+    """)
+    
+    wyniki(cur.fetchall())
+
 
 def main(args):
     con = sqlite3.connect('pracownicy.sqlite3')
@@ -61,7 +71,8 @@ def main(args):
     #kw_c(cur)
     #kw_d(cur)
     #kw_e(cur)
-    kw_f(cur)
+    #kw_f(cur)
+    kw_g(cur)
     return 0
 
 if __name__ == '__main__':
