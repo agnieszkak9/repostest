@@ -60,7 +60,18 @@ def kw_g(cur):
         CAST((JulianDay() - JulianDay(data_zatr)) / 365 AS Integer) AS okres
         FROM pracownicy
         ORDER BY okres DESC
+        LIMIT 0, 10
     """)
+    
+    wyniki(cur.fetchall())
+
+def kw_h(cur):
+    parametr = input('Podaj numer działu: ')
+    cur.execute ("""
+        SELECT imie, nazwisko, stanowisko, siedziba FROM pracownicy, dzial
+        WHERE  dzial.id = pracownicy.id_dzial
+        AND dzial.id = ?
+    """, (parametr,))
     
     wyniki(cur.fetchall())
 
@@ -72,7 +83,8 @@ def main(args):
     #kw_d(cur)
     #kw_e(cur)
     #kw_f(cur)
-    kw_g(cur)
+    #kw_g(cur)
+    kw_h(cur)
     return 0
 
 if __name__ == '__main__':
