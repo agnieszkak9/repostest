@@ -1,9 +1,14 @@
 szerokosc = 640;
 wysokosc = 480;
 
-ileKw = prompt("Podaj ilość losowanych punktów: ", 1000);
+punktX0 = szerokosc/2;
+punktY0 = wysokosc/2;
+
+//ileKw = prompt("Podaj ilość losowanych punktów: ", 1000);
+ileKw = 1000;
 ileKw = parseInt(ileKw);
-r = prompt("Podaj promień:", 100);
+r = 100;
+//r = prompt("Podaj promień:", 100);
 ileKo = 0;
 
 function getRnd(min, max) {
@@ -29,18 +34,23 @@ pi = 4 * ileKo / ileKw;
 alert("Przybliżona wartość Pi: " + pi);
 
 function setup() {
-	createCanvas(640, 480);
-	background(255, 204, 100);
+	createCanvas(szerokosc, wysokosc);
+	background('#ffffff');
 }
 
 function draw() {
-	stroke('#000')
-	ellipse(szerokosc/2, wysokosc/2, 2*r, 2*r);
-	line(0, 240, 640, 240);
-	line(320, 0, 320, 480);
+	stroke('#666'); // ustalenie koloru konturu
+	fill('#fff'); // kolor wypełnienia
+	ellipse(szerokosc/2, wysokosc/2, 2*r, 2*r); // koło
+	line(szerokosc/2, 0, szerokosc/2, wysokosc); // oś x
+	line(0, wysokosc/2, szerokosc, wysokosc/2); // oś y
 
-	line(220,140,220,340);
-	line(220,140,420,140);
-	line(220,340,420,340);
-	line(420,140,420,340);
+	for(i = 0; i < ileKw; i++){
+		if(lx[i]*lx[i] + ly[i]*ly[i] < r*r) {
+			stroke('#f00'); // kolor czerwony dla punktów w kole
+		} else {
+			stroke('#000'); // kolor czarny dla punktów pozostałych
+		}
+		point(lx[i] + punktX0, ly[i] + punktY0);
+	}
 }
